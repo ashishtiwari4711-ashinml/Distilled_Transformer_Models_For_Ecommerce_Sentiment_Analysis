@@ -1,137 +1,143 @@
-# Sentiment Analysis using NLP and Machine Learning
+# Sentiment Analysis using Classical ML and Transformer Models
 
 Author: Ashish Tiwari  
-Project: Sentiment Analysis (Natural Language Processing) 
+Project: NLP Sentiment Analysis  
+Frameworks: Scikit-learn, Hugging Face Transformers  
 
 ---
 
 ## Project Overview
 
-This project implements a complete **Natural Language Processing (NLP) sentiment analysis pipeline** to classify text reviews into sentiment categories.
+This project implements a comparative sentiment analysis pipeline using:
 
-The goal is to transform raw textual data into meaningful numerical representations and apply classical machine learning algorithms to predict sentiment.
+- Logistic Regression (classical ML baseline)
+- DistilBERT (pretrained transformer)
+- DistilRoBERTa (pretrained transformer)
 
-The project demonstrates the full ML lifecycle:
+The goal was to evaluate how transformer-based models compare against traditional machine learning approaches for text classification.
 
-Raw Text → Cleaning → Tokenization → Vectorization → Model Training → Evaluation → Comparison
+The project follows a structured NLP pipeline:
+
+Raw Text → Cleaning → Tokenization → Encoding → Model Training → Evaluation → Model Comparison
 
 ---
 
 ## Problem Statement
 
-Given a dataset of textual reviews, predict whether each review expresses positive or negative sentiment.
+Given a dataset of textual reviews, classify each review as positive or negative sentiment.
 
-This is framed as a **supervised text classification problem**.
+This is framed as a supervised binary classification task.
 
 ---
 
-## Key Objectives
+## Models Implemented
 
-- Perform extensive text preprocessing
-- Convert text into numerical features using TF-IDF
-- Train multiple ML classifiers
-- Compare model performance using accuracy and classification reports
-- Identify the best-performing model
+### 1. Logistic Regression (Baseline)
+
+- Text converted using TF-IDF vectorization
+- Logistic Regression trained on sparse feature vectors
+- Serves as a classical ML benchmark
+
+Purpose:
+Establish a strong traditional baseline before applying transformer models.
+
+---
+
+### 2. DistilBERT
+
+- Lightweight version of BERT
+- Pretrained on large corpora
+- Fine-tuned on the sentiment dataset
+
+Advantages:
+- Faster training than full BERT
+- Context-aware embeddings
+- Captures semantic relationships
+
+---
+
+### 3. DistilRoBERTa
+
+- Distilled version of RoBERTa
+- Improved training methodology over BERT
+- Fine-tuned on the sentiment dataset
+
+Result:
+DistilRoBERTa achieved the highest validation performance among all models.
+
+---
+
+## Why Compare These Models?
+
+The objective was to understand:
+
+- How much performance gain transformers provide over classical ML
+- Trade-off between computational cost and accuracy
+- Impact of contextual embeddings vs bag-of-words representations
 
 ---
 
 ## Pipeline Architecture
 
-1. Load dataset  
-2. Clean text (lowercasing, punctuation removal, stopwords removal)  
-3. Tokenize sentences  
-4. Convert text to TF-IDF vectors  
-5. Split into training and testing sets  
-6. Train ML models  
-7. Evaluate using accuracy and classification metrics  
+### Step 1: Data Preprocessing
+- Lowercasing
+- Cleaning special characters
+- Removing noise
+- Preparing text for tokenization
 
+### Step 2: Feature Representation
 
----
+For Logistic Regression:
+- TF-IDF vectorization
 
-## Technologies Used
-
-- Python  
-- Pandas / NumPy  
-- NLTK  
-- Scikit-learn  
-- Matplotlib / Seaborn  
+For Transformer Models:
+- Tokenization using pretrained tokenizer
+- Attention masks
+- Padding and truncation
 
 ---
 
-## Text Preprocessing
+## Training Strategy
 
-The following steps are applied:
+Logistic Regression:
+- Trained on TF-IDF vectors
+- Evaluated using accuracy, precision, recall, F1-score
 
-### Lowercasing
-Ensures consistency across tokens.
-
-### Removing punctuation and special characters
-Reduces noise.
-
-### Stopword removal
-Removes common words (e.g., "the", "is") that carry little sentiment.
-
-### Tokenization
-Splits sentences into individual words.
-
-These steps significantly improve feature quality.
-
----
-
-## Feature Engineering (TF-IDF)
-
-TF-IDF (Term Frequency–Inverse Document Frequency) converts text into numerical vectors.
-
-Why TF-IDF?
-
-- Penalizes common words
-- Highlights important terms
-- Works well with classical ML models
-- Lightweight compared to embeddings
-
----
-
-## Models Trained
-
-The following classifiers were implemented:
-
-- Logistic Regression  
-- Naive Bayes  
-- Support Vector Machine  
-
-Each model was trained on TF-IDF features and evaluated on unseen test data.
+Transformers:
+- Fine-tuned pretrained models
+- Used classification head on top of encoder
+- Optimized using AdamW
+- Evaluated on validation set
 
 ---
 
 ## Evaluation Metrics
 
-Models are compared using:
+- Accuracy
+- Precision
+- Recall
+- F1-score
 
-### Accuracy
-Overall correctness.
-
-### Precision
-How many predicted positives were correct.
-
-### Recall
-How many actual positives were detected.
-
-### F1-score
-Balance between precision and recall.
-
-A full classification report is generated for each model.
+These metrics provide balanced evaluation for sentiment classification.
 
 ---
 
-## Results Summary
+## Key Results
 
-Support Vector Machine achieved the strongest overall performance.
+- Logistic Regression provided a solid baseline.
+- DistilBERT significantly improved contextual understanding.
+- DistilRoBERTa achieved the best overall performance.
 
-Key observation:
-
-Proper text preprocessing and TF-IDF feature extraction had a larger impact on performance than model choice.
+Conclusion:
+Contextual transformer models outperform traditional bag-of-words approaches in sentiment analysis tasks.
 
 ---
 
+## Key Learnings
+
+- Pretrained transformers dramatically improve text classification performance.
+- Model architecture and pretraining corpus matter.
+- Distillation provides strong performance with lower computational cost.
+- Baselines are essential for meaningful comparison.
 
 
